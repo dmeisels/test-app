@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="800.0" styleClass="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.dmm.calendar.CalendarController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <BorderPane prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+        <TableView fx:id="eventTable" editable="true" prefHeight="200.0" prefWidth="200.0">
+          <columns>
+            <TableColumn editable="false" prefWidth="75.0" text="Date" fx:id="dateColumn" />
+            <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="" fx:id="jDateColumn" />
+            <TableColumn editable="true" maxWidth="5000.0" minWidth="10.0" onEditCommit="#handleEditEvent" prefWidth="632.0" text="Event" fx:id="eventColumn" />
+          </columns>
+          <contextMenu>
+            <ContextMenu>
+              <items>
+                <CheckMenuItem mnemonicParsing="false" onAction="#showAllEvents" selected="true" text="Show All Events" fx:id="showAll" />
+                <MenuItem mnemonicParsing="false" onAction="#handleAddEvent" text="Add Event" />
+                <MenuItem mnemonicParsing="false" onAction="#handleEditEvent" text="Edit Event" />
+                <MenuItem mnemonicParsing="false" onAction="#handleDeleteEvent" text="Delete Event" />
+                <MenuItem mnemonicParsing="false" onAction="#handleLoadEvents" text="Load Events" />
+              </items>
+            </ContextMenu>
+          </contextMenu>
+        </TableView>
+      </bottom>
+      <center>
+        <GridPane fx:id="grid" minHeight="498.0" minWidth="531.0" prefHeight="498.0" prefWidth="531.0" styleClass="root">
+          <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="0">
+              <children>
+                <Label fx:id="monthYear" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onMonthYearClicked" styleClass="monthyear-row" text="Month Year" textAlignment="CENTER" HBox.hgrow="SOMETIMES">
+                  <HBox.margin>
+                    <Insets bottom="2.0" fx:id="x2" />
+                  </HBox.margin>
+                </Label>
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="weekday-row" GridPane.columnIndex="0" GridPane.rowIndex="1">
+              <children>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Sun" textAlignment="CENTER" HBox.hgrow="SOMETIMES">
+                  <font>
+                    <Font name="System Bold" size="12.0" fx:id="x1" />
+                  </font>
+                </Label>
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="weekday-row" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Mon" textAlignment="CENTER" HBox.hgrow="SOMETIMES" />
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="weekday-row" GridPane.columnIndex="2" GridPane.rowIndex="1">
+              <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Tue" textAlignment="CENTER" HBox.hgrow="SOMETIMES" />
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="weekday-row" GridPane.columnIndex="3" GridPane.rowIndex="1">
+              <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Wed" textAlignment="CENTER" HBox.hgrow="SOMETIMES" />
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="weekday-row" GridPane.columnIndex="4" GridPane.rowIndex="1">
+              <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Thu" textAlignment="CENTER" HBox.hgrow="SOMETIMES" />
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="weekday-row" GridPane.columnIndex="5" GridPane.rowIndex="1">
+              <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Fri" textAlignment="CENTER" HBox.hgrow="SOMETIMES" />
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="weekday-row" GridPane.columnIndex="6" GridPane.rowIndex="1">
+              <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Sat" textAlignment="CENTER" HBox.hgrow="SOMETIMES" />
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="monthyear-row" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <HBox alignment="TOP_RIGHT" onMouseClicked="#showSettings" prefHeight="100.0" prefWidth="200.0" styleClass="monthyear-row" GridPane.columnIndex="6" GridPane.hgrow="SOMETIMES" GridPane.margin="$x2" GridPane.rowIndex="0">
+              <children>
+                <ImageView fitHeight="25.0" fitWidth="30.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../../../../../resources/images/settings.png" />
+                  </image>
+                </ImageView>
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+              <children>
+                <HBox id="day-cell" prefHeight="100.0" prefWidth="200.0" />
+              </children>
+            </HBox>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </center>
+      <left>
+        <TableView fx:id="zmanimTable" prefHeight="200.0" prefWidth="200.0">
+          <columns>
+            <TableColumn prefWidth="75.0" text="Date" fx:id="zmanColumn" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="145.0" text="Event" fx:id="descColumn" />
+          </columns>
+        </TableView>
+      </left>
+    </BorderPane>
+  </children>
+  <stylesheets>
+    <URL value="@calendar.css" />
+  </stylesheets>
+</AnchorPane>
